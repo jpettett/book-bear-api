@@ -9,4 +9,10 @@ router.get('/', (req, res) => {
     .catch(console.error);
 });
 
+router.get('/:id', (req, res) => {
+  Book.find({ _id: req.params.id }).then(book => {
+    res.json(book);
+  });
+});
+
 module.exports = router;
