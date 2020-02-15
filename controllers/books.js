@@ -17,6 +17,14 @@ router.get('/:id', (req, res) => {
   });
 });
 
+//get specified book by title, helpful for search feature
+router.get('/:title', (req, res) => {
+  // let book = Book.find(book => book.title === parseInt(req.params.title))
+  Book.find({ title: req.params.title }).then(book => {
+    res.json(book);
+  });
+});
+
 //get all books that have been read
 router.get('/read', (req, res) => {
   Book.find({ readStatus: true }).then(books => {
@@ -40,7 +48,7 @@ router.post('/', (req, res) => {
 });
 
 //update specified book by id
-router.put('/:id', (req, res) => {
+router.put('/:id/edit', (req, res) => {
   const updatedBook = req.body;
   Book.findOneAndUpdate({ _id: req.params.id }, updatedBook, {
     new: true
