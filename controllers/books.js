@@ -17,6 +17,13 @@ router.get('/:id', (req, res) => {
   });
 });
 
+//get specified book by title, helpful for search feature
+router.get('/:title', (req, res) => {
+  Book.find({ title: req.params.title }).then(book => {
+    res.json(book);
+  });
+});
+
 //get all books that have been read
 router.get('/read', (req, res) => {
   Book.find({ readStatus: true }).then(books => {
