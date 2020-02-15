@@ -15,36 +15,22 @@ describe('GET /books', () => {
   });
 });
 
-// //test will pass if book returned matches the specified id
-// describe('GET /books/:id', () => {
-//   const bookId = '5e471c2a5932571a818586f4';
-//   it('should return a book with the specified id', done => {
-//     api
-//       .get(`/books/${bookId}`)
-//       .set('Accept', 'application/json')
-//       .end((err, res) => {
-//         const book = res.body;
-//         expect(book._id).to.equal(bookId);
-//         done();
-//       });
-//   });
-// });
+//test will pass if book returned matches the specified id
+describe('GET /books/:id', () => {
+  const bookId = '5e4715d0f90e817ffaeb7917';
+  it('should return a book with the specified id', done => {
+    api
+      .get(`/books/${bookId}`)
+      .set('Accept', 'application/json')
+      .end((error, response) => {
+        const book = response.body[0];
+        expect(book._id).to.equal(bookId);
+        done();
+      });
+  });
+});
 
-// //test will pass if book returned matches specified title
-// describe('GET /books/:title', () => {
-//   const bookTitle = 'little fires everywhere';
-//   it('should return a book with the specified title', done => {
-//     api
-//       .get(`/books/${bookTitle}`)
-//       .set('Accept', 'application/json')
-//       .end((err, res) => {
-//         expect(res.body.title).to.equal(bookTitle);
-//         done().catch(console.error);
-//       });
-//   });
-// });
-
-//test will pass if it successfully adds a new book to the database
+//test will pass if it successfully adds a new book to the database(test passes, we comented it out so it wouldn't keep running)
 // describe('POST /books', () => {
 //   const newBook = {
 //     title: 'blah blah blah',
@@ -65,42 +51,43 @@ describe('GET /books', () => {
 //     api
 //       .get('/books')
 //       .set('Accept', 'application/json')
-//       .end((err, res) => {
-//         const bookToFind = res.body.find(book => book.title === newBook.title);
+//       .end((error, response) => {
+//         const bookToFind = response.body.find(book => book.title === newBook.title);
 //         expect(bookToFind).to.be.an('object');
 //         done();
 //       });
 //   });
 // });
 
-describe('PUT /books/:id/edit', () => {
-  let bookToUpdate = {
-    title: 'test2',
-    author: 'Jay Gatsby',
-    _id: '5e471c2a5932571a818586f6'
-  };
-  before(done => {
-    api
-      .put(`/books/${bookToUpdate._id}/edit`)
-      .set('Accept', 'application/json')
-      .send(bookToUpdate)
-      .end(done);
-  });
-  it('should update a book by id', done => {
-    api
-      .get(`/books`)
-      .set('Accept', 'application/json')
-      .end((error, response) => {
-        const bookToFind = response.body.find(
-          book => book.title === bookToUpdate.title
-        );
-        expect(bookToFind).to.be.an('object');
-        done();
-      });
-  });
-});
+//test will pass if specified book is updated (test passes, we comented it out so it wouldn't keep running)
+// describe('PUT /books/:id/edit', () => {
+//   let bookToUpdate = {
+//     title: 'test2',
+//     author: 'Jay Gatsby',
+//     _id: '5e471c2a5932571a818586f6'
+//   };
+//   before(done => {
+//     api
+//       .put(`/books/${bookToUpdate._id}/edit`)
+//       .set('Accept', 'application/json')
+//       .send(bookToUpdate)
+//       .end(done);
+//   });
+//   it('should update a book by id', done => {
+//     api
+//       .get(`/books`)
+//       .set('Accept', 'application/json')
+//       .end((error, response) => {
+//         const bookToFind = response.body.find(
+//           book => book.title === bookToUpdate.title
+//         );
+//         expect(bookToFind).to.be.an('object');
+//         done();
+//       });
+//   });
+// });
 
-// test will pass succesfully if specified book is removed from array
+// test will pass succesfully if specified book is removed from array(test passes, we comented it out so it wouldn't keep running)
 // describe('DELETE /books/:id', () => {
 //   let idToDelete = '5e48441e4e0b1310a6634013';
 //   before(done => {

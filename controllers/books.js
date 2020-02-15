@@ -19,6 +19,7 @@ router.get('/:id', (req, res) => {
 
 //get specified book by title, helpful for search feature
 router.get('/:title', (req, res) => {
+  // let book = Book.find(book => book.title === parseInt(req.params.title))
   Book.find({ title: req.params.title }).then(book => {
     res.json(book);
   });
