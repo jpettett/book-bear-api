@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
 });
 
 //update specified book by id
-router.put('/:id', (req, res) => {
+router.put('/:id/edit', (req, res) => {
   const updatedBook = req.body;
   Book.findOneAndUpdate({ _id: req.params.id }, updatedBook, {
     new: true
