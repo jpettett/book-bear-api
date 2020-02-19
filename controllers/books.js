@@ -17,28 +17,6 @@ router.get('/:id', (req, res) => {
   });
 });
 
-//get specified book by title, helpful for search feature
-router.get('/:title', (req, res) => {
-  // let book = Book.find(book => book.title === parseInt(req.params.title))
-  Book.find({ title: req.params.title }).then(book => {
-    res.json(book);
-  });
-});
-
-//get all books that have been read
-router.get('/read', (req, res) => {
-  Book.find({ readStatus: true }).then(books => {
-    res.json(books);
-  });
-});
-
-//get all books that have not been read
-router.get('/unread', (req, res) => {
-  Book.find({ readStatus: false }).then(books => {
-    res.json(books);
-  });
-});
-
 //create a new book
 router.post('/', (req, res) => {
   const newBook = req.body;
