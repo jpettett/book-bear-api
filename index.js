@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/books', booksController);
+app.use('/', booksController);
 
 app.set('port', process.env.PORT || 4000);
 
