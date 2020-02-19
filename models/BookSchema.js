@@ -11,7 +11,7 @@ const BookSchema = new mongoose.Schema({
   },
   coverPhotoURL: {
     type: String,
-    default: 'put default url here'
+    default: 'https://i.imgur.com/liYx7F6.png'
   },
   amazonURL: {
     type: String,
