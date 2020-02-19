@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 //get specified book by id
 router.get('/:id', (req, res) => {
-  Book.find({ _id: req.params.id }).then(book => {
+  Book.findOne({ _id: req.params.id }).then(book => {
     res.json(book);
   });
 });
