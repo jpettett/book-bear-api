@@ -11,7 +11,7 @@ const router = express.Router();
 
 //get all books
 router.get('/', requireToken, (req, res, next) => {
-  Book.find({owner: req.user._id})
+  Book.find({ owner: req.user._id })
     .then(books => res.json(books))
     .catch(next);
 });
@@ -38,12 +38,13 @@ router.post('/', requireToken, (req, res, next) => {
 });
 
 //update specified book by id
-router.put('/:id/edit', handleValidateId, (req, res, next) => {
+router.put('/:id/edit', handleValidateId, requireToken, (req, res, next) => {
   const updatedBook = req.body;
   Book.findOneAndUpdate({ _id: req.params.id }, updatedBook, {
     new: true
   })
     .then(handleRecordExists)
+    .then(book => handleValidateOwnership(req, book))
     .then(book => {
       res.json(book);
     })
@@ -54,8 +55,9 @@ router.put('/:id/edit', handleValidateId, (req, res, next) => {
 router.delete('/:id', handleValidateId, (req, res, next) => {
   Book.findOneAndDelete({ _id: req.params.id })
     .then(handleRecordExists)
+    .then(book => handleValidateOwnership(req, book))
     .then(book => {
-      res.json(book);
+      res.sendStatus(204);
     })
     .catch(next);
 });

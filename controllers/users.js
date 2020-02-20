@@ -2,7 +2,7 @@ const express = require('express');
 //bcrypt hashes passwords so sensitive user data isn't stored
 const bcrypt = require('bcrypt');
 const User = require('../models/UserSchema');
-const { createUserToken } = require('../middleware/auth');
+const { createUserToken, requireToken } = require('../middleware/auth');
 const router = express.Router();
 
 //sign up new user with promise chain//
@@ -33,8 +33,8 @@ router.post('/login', (req, res, next) => {
 });
 
 //sign out user//
-router.post('/signout', (req, res, next) => {
-  //
+router.delete('/signout', requireToken, (req, res, next) => {
+  res.json({ token: '' });
 });
 
 module.exports = router;
