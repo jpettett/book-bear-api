@@ -1,6 +1,6 @@
-const mongoose = require('../connection');
+const mongoose = require('../db/connection');
 
-const UserSChema = new Schema(
+const UserSChema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -17,7 +17,14 @@ const UserSChema = new Schema(
     }
   },
   {
-    timestamps: true
+    timestamps: true,
+    toJSON: {
+      virtuals: true,
+      transform: (_doc, ret) => {
+        delete ret.password;
+        return ret; //return returned mongoose doc
+      }
+    }
   }
 );
 
