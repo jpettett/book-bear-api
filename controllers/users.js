@@ -2,10 +2,11 @@ const express = require('express');
 //bcrypt hashes passwords so sensitive user data isn't stored
 const bcrypt = require('bcrypt');
 const User = require('../models/UserSchema');
+const { createUserToken } = require('../middleware/auth');
 const router = express.Router();
 
 //sign up new user with promise chain//
-router.post('/', (req, res, next) => {
+router.post('/signup', (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10)
     .then(hashPassword => ({
@@ -21,7 +22,14 @@ router.post('/', (req, res, next) => {
 
 //sign in user //
 router.post('/login', (req, res, next) => {
-  //
+  User.findOne({ email: req.body.email })
+    // Pass the user and the request to createUserToken
+    .then(user => createUserToken(req, user))
+    // createUserToken will either throw an error that
+    // will be caught by our error handler or send back
+    // a token that we'll in turn send to the client.
+    .then(token => res.json({ token }))
+    .catch(next);
 });
 
 //sign out user//

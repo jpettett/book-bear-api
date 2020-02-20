@@ -1,45 +1,63 @@
 const express = require('express');
 const Book = require('../models/BookSchema');
+const {
+  handleValidateId,
+  handleRecordExists,
+  handleValidateOwnership
+} = require('../middleware/custom_errors');
+const { requireToken } = require('../middleware/auth');
 
 const router = express.Router();
 
 //get all books
-router.get('/', (req, res) => {
-  Book.find({})
+router.get('/', requireToken, (req, res, next) => {
+  Book.find({owner: req.user._id})
     .then(books => res.json(books))
-    .catch(console.error);
+    .catch(next);
 });
 
 //get specified book by id
-router.get('/:id', (req, res) => {
-  Book.findOne({ _id: req.params.id }).then(book => {
-    res.json(book);
-  });
+router.get('/:id', handleValidateId, (req, res, next) => {
+  Book.findOne({ _id: req.params.id })
+    .populate('owner')
+    .then(handleRecordExists)
+    .then(book => {
+      res.json(book);
+    })
+    .catch(next);
 });
 
 //create a new book
-router.post('/', (req, res) => {
+router.post('/', requireToken, (req, res, next) => {
   const newBook = req.body;
-  Book.create(newBook).then(book => {
-    res.json(book);
-  });
+  Book.create({ ...newBook, owner: req.user._id })
+    .then(book => {
+      res.json(book);
+    })
+    .catch(next);
 });
 
 //update specified book by id
-router.put('/:id/edit', (req, res) => {
+router.put('/:id/edit', handleValidateId, (req, res, next) => {
   const updatedBook = req.body;
   Book.findOneAndUpdate({ _id: req.params.id }, updatedBook, {
     new: true
-  }).then(book => {
-    res.json(book);
-  });
+  })
+    .then(handleRecordExists)
+    .then(book => {
+      res.json(book);
+    })
+    .catch(next);
 });
 
 //delete specified book by id
-router.delete('/:id', (req, res) => {
-  Book.findOneAndDelete({ _id: req.params.id }).then(book => {
-    res.json(book);
-  });
+router.delete('/:id', handleValidateId, (req, res, next) => {
+  Book.findOneAndDelete({ _id: req.params.id })
+    .then(handleRecordExists)
+    .then(book => {
+      res.json(book);
+    })
+    .catch(next);
 });
 
 module.exports = router;
