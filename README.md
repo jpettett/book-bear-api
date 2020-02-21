@@ -20,7 +20,8 @@ The BookBear API was built with NodeJS, Express and MongoDB. Testing for the API
 ![Screen Shot 2020-02-20 at 5 43 52 PM](https://user-images.githubusercontent.com/57810606/74996501-9422c680-5408-11ea-9dec-bf1f4c5e088a.png)
 
 ## Contribution
-  The BookBear application was made with contributions from Joseph Pettett, Asha Misra, Dan Fruth and Teresa Fitzgerald
+  Please submit an issue on this repo if you find a bug in the code. To make suggestions on features or other behavior, please make a pull request. Thanks!
+
 
 ## Known Bugs & Future Updates
 A user authentication model is currently in the works which will add ownership between the user and the book database. The team is excited to learn more about password authentication and hashing!
