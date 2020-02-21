@@ -8,7 +8,7 @@
 ## About BookBear
  BookBear is an application for readers who want to list, track, rate and review books that they have read.
 
-Finsihed app can be viewd here: http://book-bear.herokuapp.com/books
+Finsihed app can be viewed here: http://book-bear.herokuapp.com/books
    
 ## Features
  BookBear features full CRUD functionality, allowing users to view, add and remove books as well as rate and review.
